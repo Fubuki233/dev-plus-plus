@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dev Intake Approval"
+  short_description: "Clarify, plan, and gate development work"
+  default_prompt: "Use $dev-intake-approval to clarify and plan this development request before implementation."

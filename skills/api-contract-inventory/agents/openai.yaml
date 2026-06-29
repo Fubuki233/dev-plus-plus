@@ -1,0 +1,4 @@
+interface:
+  display_name: "API Contract Inventory"
+  short_description: "Map APIs, user flows, contracts, and gaps"
+  default_prompt: "Use $api-contract-inventory to scan API contracts and frontend user flows."

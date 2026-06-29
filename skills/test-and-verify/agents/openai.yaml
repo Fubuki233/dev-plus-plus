@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test And Verify"
+  short_description: "Plan and run tests, lint, builds, and checks"
+  default_prompt: "Use $test-and-verify to plan verification and run approved checks."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Frontend Reuse Workflow"
+  short_description: "Inventory components and build UI from templates"
+  default_prompt: "Use $frontend-reuse-workflow to plan frontend work around reusable components and templates."

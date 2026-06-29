@@ -1,0 +1,4 @@
+interface:
+  display_name: "Git Change Control"
+  short_description: "Gate commits, pushes, merges, and releases"
+  default_prompt: "Use $git-change-control to inspect git state before commit, push, merge, or release work."

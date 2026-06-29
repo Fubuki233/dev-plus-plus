@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "documents": [
+    {
+      "path": "api/INDEX.md",
+      "kind": "index",
+      "keywords": ["api", "contracts", "user flows"]
+    },
+    {
+      "path": "frontend/INDEX.md",
+      "kind": "index",
+      "keywords": ["frontend", "components", "templates"]
+    },
+    {
+      "path": "reuse/INDEX.md",
+      "kind": "index",
+      "keywords": ["reuse", "services", "patterns"]
+    },
+    {
+      "path": "architecture/INDEX.md",
+      "kind": "index",
+      "keywords": ["architecture", "modules", "permissions"]
+    }
+  ]
+}
