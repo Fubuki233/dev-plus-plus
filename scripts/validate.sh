@@ -19,4 +19,18 @@ for skill_dir in "$ROOT_DIR"/skills/*; do
   python3 "$VALIDATOR" "$skill_dir"
 done
 
-echo "All dev++ skills validated."
+for skill_dir in "$ROOT_DIR"/commands/claude-skills/*; do
+  [ -d "$skill_dir" ] || continue
+  echo "Validating Claude command $(basename "$skill_dir")"
+  python3 "$VALIDATOR" "$skill_dir"
+done
+
+for prompt_file in "$ROOT_DIR"/commands/codex/*.md; do
+  [ -f "$prompt_file" ] || continue
+  echo "Validating Codex prompt $(basename "$prompt_file")"
+  grep -q '^---$' "$prompt_file"
+  grep -q '^description: ' "$prompt_file"
+  grep -q '^argument-hint: ' "$prompt_file"
+done
+
+echo "All dev++ skills and native commands validated."

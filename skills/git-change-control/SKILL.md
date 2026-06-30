@@ -7,7 +7,7 @@ description: "Use before or during git operations such as branch changes, stagin
 
 ## Read-Only Preflight
 
-`/git-check` allows only read-only inspection:
+The `git-check` command wrapper allows only read-only inspection. Codex installs it as `/prompts:git-check`; Claude Code installs it as `/git-check`.
 
 - Current branch.
 - `git status --short`.

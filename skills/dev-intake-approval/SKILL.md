@@ -11,15 +11,15 @@ Do not move from analysis to action until the user explicitly approves the concr
 
 If anything is unclear, ask. Do not fill missing requirements by convention, framework defaults, or personal preference.
 
-## Manual Commands
+## Native Command Wrappers
 
-Treat these user messages as explicit workflow commands:
+Treat the following command wrappers as explicit workflow commands. In Codex, native wrappers are installed as `/prompts:<name>`. In Claude Code, native wrappers are installed as `/<name>`.
 
-- `/dev-init`: initialize repository context. Read project instructions, inspect architecture, check for `docs/ai-context/`, scan API and frontend inventory surfaces, and report documentation gaps. Ask before writing docs if the location or format is unclear.
-- `/dev-plan <request>`: inspect relevant code, ask blocking questions, find reusable implementations, define contracts and tests, and present a plan without editing.
-- `/multi-agent-plan <request>`: evaluate whether the work should be split across agents and present ownership boundaries before implementation.
-- `/verify-plan`: propose verification commands without running them.
-- `/git-check`: inspect branch, worktree, remotes, and risk without changing git state.
+- `dev-init`: initialize repository context. Read project instructions, inspect architecture, check for `docs/ai-context/`, scan API and frontend inventory surfaces, and report documentation gaps. Ask before writing docs if the location or format is unclear.
+- `dev-plan <request>`: inspect relevant code, ask blocking questions, find reusable implementations, define contracts and tests, and present a plan without editing.
+- `multi-agent-plan <request>`: evaluate whether the work should be split across agents and present ownership boundaries before implementation.
+- `verify-plan`: propose verification commands without running them.
+- `git-check`: inspect branch, worktree, remotes, and risk without changing git state.
 
 ## Intake Workflow
 

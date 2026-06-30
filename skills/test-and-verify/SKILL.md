@@ -9,7 +9,7 @@ description: "Use when planning or running tests, lint, type checks, builds, smo
 
 Do not run tests, lint, builds, package installs, servers, migrations, smoke checks, screenshots, or CI reproduction unless the user or project workflow explicitly approves that command class.
 
-`/verify-plan` means propose commands only. It does not approve execution.
+The `verify-plan` command wrapper means propose commands only. Codex installs it as `/prompts:verify-plan`; Claude Code installs it as `/verify-plan`. It does not approve execution.
 
 ## Command Discovery
 

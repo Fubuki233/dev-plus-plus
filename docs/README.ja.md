@@ -14,15 +14,19 @@ dev++ は、AI 支援開発を安全に進めるための汎用 Codex skills セ
 | `test-and-verify` | 承認されたテスト、ビルド、lint、検証だけを実行する。 |
 | `git-change-control` | commit、push、merge、tag、release の前に Git 状態を確認する。 |
 
-## Commands
+## Native Commands
 
-- `/dev-init`: リポジトリ文脈、API 一覧、フロントエンド部品一覧、再利用マップを初期化する。
-- `/api-init`: API とユーザーフロー文書を初期化または更新する。
-- `/frontend-init`: フロントエンド部品とテンプレート一覧を初期化または更新する。
-- `/dev-plan <request>`: 調査、質問、再利用確認、契約/テスト計画だけを行い、編集しない。
-- `/multi-agent-plan <request>`: 複数 agent の分担と境界を計画する。
-- `/verify-plan`: 検証コマンドだけを提案し、実行しない。
-- `/git-check`: Git 状態だけを確認し、変更しない。
+インストール後、dev++ は Codex と Claude Code の両方にコマンド入口を提供します。
+
+| Workflow | Codex | Claude Code |
+| --- | --- | --- |
+| リポジトリ文脈を初期化 | `/prompts:dev-init` | `/dev-init` |
+| API 一覧を初期化 | `/prompts:api-init` | `/api-init` |
+| フロントエンド一覧を初期化 | `/prompts:frontend-init` | `/frontend-init` |
+| 開発依頼を計画 | `/prompts:dev-plan <request>` | `/dev-plan <request>` |
+| 複数 agent 作業を計画 | `/prompts:multi-agent-plan <request>` | `/multi-agent-plan <request>` |
+| 検証コマンドを計画 | `/prompts:verify-plan` | `/verify-plan` |
+| Git 状態を確認 | `/prompts:git-check` | `/git-check` |
 
 ## Install
 
@@ -32,7 +36,18 @@ cd dev-plus-plus
 scripts/install.sh
 ```
 
-インストーラーは skills を `${CODEX_HOME:-$HOME/.codex}/skills` にコピーします。
+インストーラーは次をコピーします。
+
+- Codex skills: `${CODEX_HOME:-$HOME/.codex}/skills`
+- Codex command prompts: `${CODEX_HOME:-$HOME/.codex}/prompts`
+- Claude Code slash skills: `${CLAUDE_HOME:-$HOME/.claude}/skills`
+
+片方だけインストールする場合:
+
+```bash
+scripts/install.sh --codex-only
+scripts/install.sh --claude-only
+```
 
 ## Documentation
 

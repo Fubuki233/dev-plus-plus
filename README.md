@@ -16,15 +16,19 @@ Translations: [简体中文](docs/README.zh-CN.md) | [日本語](docs/README.ja.
 | `test-and-verify` | Discover and run only approved tests, builds, lint, and checks. |
 | `git-change-control` | Inspect and gate commits, pushes, merges, tags, and releases. |
 
-## Manual Commands
+## Native Commands
 
-- `/dev-init`: initialize repository context, API inventory, frontend inventory, and reuse map.
-- `/api-init`: initialize or refresh API and user-flow documentation.
-- `/frontend-init`: initialize or refresh frontend component and template inventory.
-- `/dev-plan <request>`: inspect, ask, reuse-check, define contracts/tests, and plan without editing.
-- `/multi-agent-plan <request>`: split work into safe ownership scopes.
-- `/verify-plan`: propose verification commands without running them.
-- `/git-check`: inspect git state without changing it.
+After install, dev++ exposes command entries for both Codex and Claude Code.
+
+| Workflow | Codex | Claude Code |
+| --- | --- | --- |
+| Initialize repository context | `/prompts:dev-init` | `/dev-init` |
+| Initialize API inventory | `/prompts:api-init` | `/api-init` |
+| Initialize frontend inventory | `/prompts:frontend-init` | `/frontend-init` |
+| Plan a development request | `/prompts:dev-plan <request>` | `/dev-plan <request>` |
+| Plan multi-agent work | `/prompts:multi-agent-plan <request>` | `/multi-agent-plan <request>` |
+| Plan verification | `/prompts:verify-plan` | `/verify-plan` |
+| Inspect git state | `/prompts:git-check` | `/git-check` |
 
 ## Install
 
@@ -34,7 +38,18 @@ cd dev-plus-plus
 scripts/install.sh
 ```
 
-The installer copies skills into `${CODEX_HOME:-$HOME/.codex}/skills`.
+The installer copies:
+
+- Codex skills into `${CODEX_HOME:-$HOME/.codex}/skills`.
+- Codex command prompts into `${CODEX_HOME:-$HOME/.codex}/prompts`.
+- Claude Code slash skills into `${CLAUDE_HOME:-$HOME/.claude}/skills`.
+
+Install only one side when needed:
+
+```bash
+scripts/install.sh --codex-only
+scripts/install.sh --claude-only
+```
 
 ## Validate
 

@@ -14,15 +14,19 @@ dev++ 是一组面向 AI 辅助开发的通用 Codex skills。它的目标是让
 | `test-and-verify` | 发现并只运行已批准的测试、构建、lint 和验证命令。 |
 | `git-change-control` | 在提交、推送、合并、打 tag、发布前做 Git 门禁检查。 |
 
-## 常用命令
+## 原生命令
 
-- `/dev-init`：初始化仓库上下文、API 清单、前端组件清单和复用地图。
-- `/api-init`：初始化或刷新 API 与用户动线文档。
-- `/frontend-init`：初始化或刷新前端组件和模板清单。
-- `/dev-plan <需求>`：只调研、提问、查复用、定义契约/测试并出计划，不改代码。
-- `/multi-agent-plan <需求>`：规划多 agent 分工和边界。
-- `/verify-plan`：只规划验证命令，不运行。
-- `/git-check`：只检查 Git 状态，不改变仓库。
+安装后，dev++ 同时提供 Codex 和 Claude Code 的命令入口。
+
+| 工作流 | Codex | Claude Code |
+| --- | --- | --- |
+| 初始化仓库上下文 | `/prompts:dev-init` | `/dev-init` |
+| 初始化 API 清单 | `/prompts:api-init` | `/api-init` |
+| 初始化前端清单 | `/prompts:frontend-init` | `/frontend-init` |
+| 规划开发需求 | `/prompts:dev-plan <需求>` | `/dev-plan <需求>` |
+| 规划多 agent 分工 | `/prompts:multi-agent-plan <需求>` | `/multi-agent-plan <需求>` |
+| 规划验证命令 | `/prompts:verify-plan` | `/verify-plan` |
+| 检查 Git 状态 | `/prompts:git-check` | `/git-check` |
 
 ## 安装
 
@@ -32,7 +36,18 @@ cd dev-plus-plus
 scripts/install.sh
 ```
 
-安装脚本会把 skills 复制到 `${CODEX_HOME:-$HOME/.codex}/skills`。
+安装脚本会复制：
+
+- Codex skills 到 `${CODEX_HOME:-$HOME/.codex}/skills`。
+- Codex 命令 prompts 到 `${CODEX_HOME:-$HOME/.codex}/prompts`。
+- Claude Code slash skills 到 `${CLAUDE_HOME:-$HOME/.claude}/skills`。
+
+只安装某一端：
+
+```bash
+scripts/install.sh --codex-only
+scripts/install.sh --claude-only
+```
 
 ## 文档约定
 
