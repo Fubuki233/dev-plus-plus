@@ -1,0 +1,4 @@
+interface:
+  display_name: "Playwright UI Automation"
+  short_description: "Drive browsers with Playwright CLI"
+  default_prompt: "Use $playwright-ui-automation to validate a web UI flow with screenshots."

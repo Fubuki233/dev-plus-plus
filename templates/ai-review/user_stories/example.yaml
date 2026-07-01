@@ -1,0 +1,20 @@
+stories:
+  - name: "Login shows dashboard"
+    url: "http://localhost:3000/login"
+    workflow: |
+      Navigate to http://localhost:3000/login
+      Verify the login form is visible
+      Fill email with the test user's email
+      Fill password with the test user's password
+      Click the login button
+      Verify the dashboard page loads
+      Verify the current user's name is visible
+
+  - name: "Dashboard detail panel opens"
+    url: "http://localhost:3000/dashboard"
+    workflow: |
+      Navigate to http://localhost:3000/dashboard
+      Verify the dashboard loads with at least one row or card
+      Click the first row or card
+      Verify a detail page, drawer, or modal opens
+      Verify the detail view contains a title and primary action

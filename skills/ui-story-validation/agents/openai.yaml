@@ -1,0 +1,4 @@
+interface:
+  display_name: "UI Story Validation"
+  short_description: "Validate UI stories with screenshots"
+  default_prompt: "Use $ui-story-validation to run a user story against a web app and report pass/fail results."

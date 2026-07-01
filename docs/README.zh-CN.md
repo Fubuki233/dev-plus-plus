@@ -2,9 +2,9 @@
 
 ![dev++ 工作流概览](../assets/dev-plus-plus-intro.png)
 
-dev++ 是一组面向 AI 辅助开发的通用 Codex skills。它的目标是让 AI 先问清楚、先调研、先找复用、先规划 API/功能契约和测试，再经过明确批准后执行。
+dev++ 是一组面向产品发现、agentic UI 验证和 AI 辅助开发的通用 Codex skills。它可以先把早期想法整理成 PRD、User Stories、风险假设、验证实验和测试场景，再进入开发规划。之后可以用真实浏览器和截图验证 UI stories。进入开发阶段后，它会让 AI 先问清楚、先调研、先找复用、先规划 API/功能契约和测试，再经过明确批准后执行。
 
-## Skills
+## 开发 Skills
 
 | Skill | 用途 |
 | --- | --- |
@@ -13,6 +13,31 @@ dev++ 是一组面向 AI 辅助开发的通用 Codex skills。它的目标是让
 | `frontend-reuse-workflow` | 扫描可复用组件和模板，优先模板化，并约束前端错误处理。 |
 | `test-and-verify` | 发现并只运行已批准的测试、构建、lint 和验证命令。 |
 | `git-change-control` | 在提交、推送、合并、打 tag、发布前做 Git 门禁检查。 |
+
+## 产品发现 Skills
+
+| Skill | 用途 |
+| --- | --- |
+| `create-prd` | 生成包含问题、目标、用户群、价值主张、方案和发布范围的 PRD。 |
+| `user-stories` | 按 3C 和 INVEST 把功能拆成带验收标准的 User Stories。 |
+| `job-stories` | 用 JTBD 方式表达用户场景、动机和目标结果。 |
+| `wwas` | 生成 Why-What-Acceptance 格式的 backlog item。 |
+| `test-scenarios` | 从 User Stories 生成面向验收的测试场景。 |
+| `identify-assumptions-new` | 识别新产品想法中的高风险假设。 |
+| `identify-assumptions-existing` | 识别既有产品功能中的高风险假设。 |
+| `prioritize-assumptions` | 按影响和风险排序假设，并给出验证建议。 |
+| `brainstorm-experiments-new` | 为新产品设计低成本验证实验。 |
+| `brainstorm-experiments-existing` | 为既有产品功能设计低成本验证实验。 |
+| `opportunity-solution-tree` | 梳理目标、机会、方案和实验。 |
+| `interview-script` | 生成用于产品发现的用户访谈脚本。 |
+| `summarize-interview` | 把访谈记录整理为 JTBD 洞察和行动项。 |
+
+## Agentic UI Testing Skills
+
+| Skill | 用途 |
+| --- | --- |
+| `playwright-ui-automation` | 通过 Playwright CLI 驱动隔离浏览器会话，支持截图、console 检查和 headless/headed 模式。 |
+| `ui-story-validation` | 逐步验证单条 UI story，保存截图，捕获失败，并输出可解析的 pass/fail 结果。 |
 
 ## 原生命令
 
@@ -23,6 +48,8 @@ dev++ 是一组面向 AI 辅助开发的通用 Codex skills。它的目标是让
 | 初始化仓库上下文 | `/prompts:dev-init` | `/dev-init` |
 | 初始化 API 清单 | `/prompts:api-init` | `/api-init` |
 | 初始化前端清单 | `/prompts:frontend-init` | `/frontend-init` |
+| 进行产品发现 | `/prompts:discovery-plan <想法>` | `/discovery-plan <想法>` |
+| 运行 UI story review | `/prompts:ui-review [headed] [filter] [vision]` | `/ui-review [headed] [filter] [vision]` |
 | 规划开发需求 | `/prompts:dev-plan <需求>` | `/dev-plan <需求>` |
 | 规划多 agent 分工 | `/prompts:multi-agent-plan <需求>` | `/multi-agent-plan <需求>` |
 | 规划验证命令 | `/prompts:verify-plan` | `/verify-plan` |
@@ -49,8 +76,34 @@ scripts/install.sh --codex-only
 scripts/install.sh --claude-only
 ```
 
+如果已经安装 `just`，也可以使用稳定的命令别名：
+
+```bash
+just --list
+just install
+just install-codex
+just install-claude
+just validate
+just ui-review-help
+just init-ui-review-stories
+```
+
+## 验证
+
+```bash
+scripts/validate.sh
+```
+
+或：
+
+```bash
+just validate
+```
+
 ## 文档约定
 
 dev++ 建议把项目调研产物放在 `docs/ai-context/`。根索引保持简短，API 和前端清单按业务域拆分，每次只读取当前任务需要的文档，避免上下文膨胀。
 
 如果项目没有现成约定，可以从 `templates/ai-context/` 复制初始结构。
+
+Agentic UI review 的可执行 story YAML 默认放在 `ai_review/user_stories/`。可以用 `templates/ai-review/user_stories/example.yaml` 作为起始模板。
