@@ -2,7 +2,7 @@
 
 ![dev++ workflow overview](assets/dev-plus-plus-intro.png)
 
-dev++ is a compact skill set for product discovery, agentic UI validation, and safer AI-assisted software development. It helps agents turn early ideas into PRDs, user stories, assumptions, validation plans, and test scenarios before moving into code. It can then validate UI stories in a real browser with screenshots. During development, it keeps agents from jumping straight into implementation, asks for missing decisions, inventories APIs and frontend reuse points, plans tests first, and gates verification and git actions.
+dev++ is a compact skill set for product discovery, agentic UI validation, and safer AI-assisted software development. It helps agents turn early ideas into PRDs, user stories, assumptions, validation plans, and test scenarios before moving into code. It can then generate executable UI story YAML from a testing direction, wait for approval, validate approved stories in a real browser with multi-agent screenshots, and return a README-style test report. During development, it keeps agents from jumping straight into implementation, asks for missing decisions, inventories APIs and frontend reuse points, plans tests first, and gates verification and git actions.
 
 Translations: [简体中文](docs/README.zh-CN.md) | [日本語](docs/README.ja.md)
 
@@ -39,7 +39,7 @@ Translations: [简体中文](docs/README.zh-CN.md) | [日本語](docs/README.ja.
 | Skill | Purpose |
 | --- | --- |
 | `playwright-ui-automation` | Drive isolated browser sessions through Playwright CLI with screenshots, console inspection, and headed/headless modes. |
-| `ui-story-validation` | Validate one UI story step by step, save screenshots, capture failures, and report parseable pass/fail results. |
+| `ui-story-validation` | Generate approval-gated YAML UI stories, validate approved stories step by step, save screenshots, capture failures, and report parseable pass/fail results. |
 
 ## Native Commands
 
@@ -51,7 +51,7 @@ After install, dev++ exposes command entries for both Codex and Claude Code.
 | Initialize API inventory | `/prompts:api-init` | `/api-init` |
 | Initialize frontend inventory | `/prompts:frontend-init` | `/frontend-init` |
 | Run product discovery | `/prompts:discovery-plan <idea>` | `/discovery-plan <idea>` |
-| Run UI story review | `/prompts:ui-review [headed] [filter] [vision]` | `/ui-review [headed] [filter] [vision]` |
+| Run UI story review | `/prompts:ui-review [direction\|filter] [headed] [vision]` | `/ui-review [direction\|filter] [headed] [vision]` |
 | Plan a development request | `/prompts:dev-plan <request>` | `/dev-plan <request>` |
 | Plan multi-agent work | `/prompts:multi-agent-plan <request>` | `/multi-agent-plan <request>` |
 | Plan verification | `/prompts:verify-plan` | `/verify-plan` |
@@ -108,4 +108,4 @@ dev++ recommends storing generated project intelligence under `docs/ai-context/`
 
 Use `templates/ai-context/` as a starter structure when a project has no existing convention.
 
-For agentic UI review, store executable story YAML files under `ai_review/user_stories/`. Use `templates/ai-review/user_stories/example.yaml` as the starter format.
+For agentic UI review, store executable story YAML files under `ai_review/user_stories/`. Use `templates/ai-review/user_stories/example.yaml` as the starter format. When a user provides a testing direction instead of a YAML file, `ui-review` first proposes stories in the same `stories:` schema and waits for approval before any browser validation. Approved runs use multi-agent browser validation when available and finish with a README-style test report.

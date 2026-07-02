@@ -2,7 +2,7 @@
 
 ![dev++ workflow overview](../assets/dev-plus-plus-intro.png)
 
-dev++ は、プロダクト発見、agentic UI 検証、AI 支援開発を安全に進めるための汎用 Codex skills セットです。初期アイデアを PRD、User Stories、リスク仮説、検証実験、テストシナリオに整理してから開発計画へ進めます。その後、実ブラウザとスクリーンショットで UI stories を検証できます。開発段階では、AI が不明点を確認し、既存実装を調査し、API/機能契約とテスト計画を整理し、明示的な承認後に作業することを重視します。
+dev++ は、プロダクト発見、agentic UI 検証、AI 支援開発を安全に進めるための汎用 Codex skills セットです。初期アイデアを PRD、User Stories、リスク仮説、検証実験、テストシナリオに整理してから開発計画へ進めます。その後、テスト方針から実行可能な UI story YAML を生成し、ユーザー承認を待ってから、承認済み stories を複数 agent の実ブラウザとスクリーンショットで検証し、README 形式のテストレポートを返します。開発段階では、AI が不明点を確認し、既存実装を調査し、API/機能契約とテスト計画を整理し、明示的な承認後に作業することを重視します。
 
 ## Development Skills
 
@@ -37,7 +37,7 @@ dev++ は、プロダクト発見、agentic UI 検証、AI 支援開発を安全
 | Skill | 目的 |
 | --- | --- |
 | `playwright-ui-automation` | Playwright CLI で隔離ブラウザセッションを操作し、スクリーンショット、console 確認、headless/headed モードを扱う。 |
-| `ui-story-validation` | 1 つの UI story を段階的に検証し、スクリーンショットを保存し、失敗を記録し、解析可能な pass/fail 結果を出す。 |
+| `ui-story-validation` | 承認前提の YAML UI stories を生成し、承認済み stories を段階的に検証し、スクリーンショットを保存し、失敗を記録し、解析可能な pass/fail 結果を出す。 |
 
 ## Native Commands
 
@@ -49,7 +49,7 @@ dev++ は、プロダクト発見、agentic UI 検証、AI 支援開発を安全
 | API 一覧を初期化 | `/prompts:api-init` | `/api-init` |
 | フロントエンド一覧を初期化 | `/prompts:frontend-init` | `/frontend-init` |
 | プロダクト発見を計画 | `/prompts:discovery-plan <idea>` | `/discovery-plan <idea>` |
-| UI story review を実行 | `/prompts:ui-review [headed] [filter] [vision]` | `/ui-review [headed] [filter] [vision]` |
+| UI story review を実行 | `/prompts:ui-review [direction\|filter] [headed] [vision]` | `/ui-review [direction\|filter] [headed] [vision]` |
 | 開発依頼を計画 | `/prompts:dev-plan <request>` | `/dev-plan <request>` |
 | 複数 agent 作業を計画 | `/prompts:multi-agent-plan <request>` | `/multi-agent-plan <request>` |
 | 検証コマンドを計画 | `/prompts:verify-plan` | `/verify-plan` |
@@ -106,4 +106,4 @@ dev++ は、調査結果を `docs/ai-context/` に保存することを推奨し
 
 既存の規約がないプロジェクトでは、`templates/ai-context/` を初期構造として利用できます。
 
-Agentic UI review の実行可能な story YAML は、既定で `ai_review/user_stories/` に置きます。`templates/ai-review/user_stories/example.yaml` を初期テンプレートとして利用できます。
+Agentic UI review の実行可能な story YAML は、既定で `ai_review/user_stories/` に置きます。`templates/ai-review/user_stories/example.yaml` を初期テンプレートとして利用できます。ユーザーが YAML ファイルではなくテスト方針を指定した場合、`ui-review` は同じ `stories:` schema で stories を提案し、承認を待ちます。承認後は利用可能な複数 agent でブラウザ検証を行い、最後に README 形式のテストレポートを出力します。

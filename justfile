@@ -22,8 +22,9 @@ validate:
     scripts/validate.sh
 
 ui-review-help:
-    @printf '%s\n' 'Codex: /prompts:ui-review [headed] [filename-filter] [vision]'
-    @printf '%s\n' 'Claude Code: /ui-review [headed] [filename-filter] [vision]'
+    @printf '%s\n' 'Codex: /prompts:ui-review [testing-direction|filename-filter] [headed] [vision]'
+    @printf '%s\n' 'Claude Code: /ui-review [testing-direction|filename-filter] [headed] [vision]'
+    @printf '%s\n' 'Flow: generate stories YAML -> approve -> multi-agent browser validation -> README report'
     @printf '%s\n' 'Stories: ai_review/user_stories/*.yaml'
 
 init-ui-review-stories dest="ai_review/user_stories/example.yaml":

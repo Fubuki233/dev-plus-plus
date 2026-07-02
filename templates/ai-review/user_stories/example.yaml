@@ -1,20 +1,18 @@
 stories:
-  - name: "Login shows dashboard"
+  - name: "Homepage loads with navigation"
+    url: "http://localhost:3000"
+    workflow: |
+      Navigate to http://localhost:3000
+      Verify the homepage loads successfully
+      Verify a navigation bar is visible with at least 3 links
+      Verify a hero section or main content area is present
+
+  - name: "Login flow completes"
     url: "http://localhost:3000/login"
     workflow: |
       Navigate to http://localhost:3000/login
-      Verify the login form is visible
-      Fill email with the test user's email
-      Fill password with the test user's password
-      Click the login button
-      Verify the dashboard page loads
-      Verify the current user's name is visible
-
-  - name: "Dashboard detail panel opens"
-    url: "http://localhost:3000/dashboard"
-    workflow: |
-      Navigate to http://localhost:3000/dashboard
-      Verify the dashboard loads with at least one row or card
-      Click the first row or card
-      Verify a detail page, drawer, or modal opens
-      Verify the detail view contains a title and primary action
+      Verify the login page loads with email and password fields
+      Fill in email with "test@example.com"
+      Fill in password with "password123"
+      Click the login/submit button
+      Verify the page redirects to a dashboard or authenticated view
