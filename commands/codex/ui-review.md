@@ -1,5 +1,5 @@
 ---
-description: "dev++: generate approval-gated YAML UI stories, then validate approved stories with multi-agent Playwright screenshots"
+description: "dev++: generate approval-gated YAML UI stories, then validate approved stories with multi-agent Playwright screenshots and reproducible failure reports"
 argument-hint: "[testing-direction|filename-filter] [headed] [vision]"
 ---
 
@@ -28,6 +28,7 @@ Rules:
 - Use multi-agent execution after approval when safe subagent tooling is available. Split stories into disjoint batches with separate browser sessions and screenshot directories.
 - If multi-agent execution is unavailable, report the blocker and ask whether serial execution is acceptable. Do not silently downgrade.
 - Every story result must end with `RESULT: PASS|FAIL | Steps: X/Y`.
+- Failed story reports must include the original user story, complete trigger chain, manual reproduction steps, all relevant test screenshots, and a dedicated failure screenshot.
 
 Story generation workflow:
 1. Parse the user's testing direction, target URL, credentials assumptions, and risk limits.
@@ -69,7 +70,7 @@ Approved execution workflow:
    <RUN_DIR>/<source-file-stem>/<story-name-slug>/
    ```
 6. Assign disjoint story batches to multiple agents. Give each agent the story name, URL, workflow, headed flag, vision flag, and screenshot directory.
-7. Collect every story's `RESULT:` line, step count, screenshot directory, and failure details.
+7. Collect every story's `RESULT:` line, step count, screenshot directory, test screenshots, and failure details. For failures, require the original story YAML, complete trigger chain, manual reproduction steps, console/network evidence, and failure screenshot.
 8. Close any browser sessions left open by failed runs.
 
 Report:
@@ -98,13 +99,57 @@ Report:
 | --- | --- | --- | --- | --- | --- |
 | 1 | <story> | <url> | PASS | X/Y | <directory> |
 
+## Test Screenshots
+
+| Story | Screenshot | Preview |
+| --- | --- | --- |
+| <story> | <path/to/screenshot.png> | ![<story> screenshot](<path/to/screenshot.png>) |
+
 ## Failures
 
-<For failed stories, include failed step, expected behavior, actual behavior, screenshots, and console/network evidence. Write "None" when all passed.>
+Write "None" when all passed. For each failed story, include:
+
+### <story name>
+
+User Story:
+
+```yaml
+stories:
+  - name: "<story name>"
+    url: "<url>"
+    workflow: |
+      <approved workflow>
+```
+
+- Failed Step: <failed step>
+- Expected: <expected behavior>
+- Actual: <observed behavior>
+- Failure Screenshot: <path/to/failure-screenshot.png>
+
+![Failure screenshot](<path/to/failure-screenshot.png>)
+
+Trigger Chain:
+
+1. Opened <url> with <preconditions>.
+2. Completed <prior action or route transition>.
+3. Sent/observed <relevant request, route, console event, or UI state>.
+4. Failed at <exact assertion or action>.
+
+Manual Reproduction:
+
+1. Open <url>.
+2. Follow the approved story workflow up to <failed step>.
+3. Use <test data or credentials, or "no special data required">.
+4. Observe <actual result> instead of <expected result>.
+
+Console/Network Evidence:
+
+<console errors, failed requests, or "None captured">
 
 ## Artifacts
 
 - Screenshots: <RUN_DIR>
+- Failure screenshots: <paths or "none">
 - Console logs: <paths or "captured inline only">
 - Network notes: <paths or "none">
 

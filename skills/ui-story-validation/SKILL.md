@@ -1,6 +1,6 @@
 ---
 name: ui-story-validation
-description: "Generate approval-gated YAML UI stories from a user testing direction, then validate approved UI user stories and acceptance scenarios in a real browser with multi-agent execution, screenshots, console capture, README-style reporting, and structured pass/fail results. Use when testing YAML stories, natural-language user stories, acceptance criteria, UI smoke flows, or agentic QA workflows against a running web app."
+description: "Generate approval-gated YAML UI stories from a user testing direction, then validate approved UI user stories and acceptance scenarios in a real browser with multi-agent execution, screenshots, console capture, README-style reporting, failure trigger chains, manual reproduction steps, and structured pass/fail results. Use when testing YAML stories, natural-language user stories, acceptance criteria, UI smoke flows, or agentic QA workflows against a running web app."
 ---
 
 # UI Story Validation
@@ -82,6 +82,8 @@ screenshots/ui-review/<story-kebab-name>_<short-id>/
    - Save a failure screenshot.
    - Capture console errors with `playwright-cli -s=<session> console`.
    - Capture relevant request data if needed with `playwright-cli -s=<session> requests`.
+   - Record the full trigger chain from the story URL and preconditions through each completed user action, route change, request, console error, and the exact failed assertion.
+   - Write manual reproduction steps that a user can follow without Playwright, including required test data or credentials, expected result, and actual observed result.
    - Stop executing destructive follow-up steps unless the user requested best-effort continuation.
 10. Close the browser session.
 
@@ -122,15 +124,32 @@ Screenshots: <directory>
 | 2 | <step> | FAIL | 01_step.png |
 
 Failure Detail:
+- User Story:
+  stories:
+    - name: "<story name>"
+      url: "<url>"
+      workflow: |
+        <approved workflow>
 - Step: <failed step>
 - Expected: <expected behavior>
 - Actual: <observed behavior>
+- Trigger Chain:
+  1. Opened <url> with <preconditions>.
+  2. Completed <prior action or route transition>.
+  3. Sent/observed <relevant request, route, console event, or UI state>.
+  4. Failed at <exact assertion or action>.
+- Manual Reproduction:
+  1. Open <url>.
+  2. Follow the approved story workflow up to <failed step>.
+  3. Use <test data or credentials, or "no special data required">.
+  4. Observe <actual result> instead of <expected result>.
+- Failure Screenshot: <path/to/failure-screenshot.png>
 
 Console Errors:
 <errors or "None captured">
 ```
 
-Only mark the story `PASS` when every required assertion was verified in the browser.
+Include every test screenshot path in the per-story result. For failed stories, include the failure screenshot path and embed it when producing Markdown. Only mark the story `PASS` when every required assertion was verified in the browser.
 
 ## README-Style Final Report
 
@@ -160,13 +179,57 @@ After all approved stories finish, produce a Markdown report that can stand alon
 | --- | --- | --- | --- | --- | --- |
 | 1 | <story> | <url> | PASS | X/Y | <directory> |
 
+## Test Screenshots
+
+| Story | Screenshot | Preview |
+| --- | --- | --- |
+| <story> | <path/to/screenshot.png> | ![<story> screenshot](<path/to/screenshot.png>) |
+
 ## Failures
 
-<For each failed story: failed step, expected behavior, actual behavior, screenshot, console/network evidence. Write "None" when all passed.>
+Write "None" when all passed. For each failed story, use this structure:
+
+### <story name>
+
+User Story:
+
+```yaml
+stories:
+  - name: "<story name>"
+    url: "<url>"
+    workflow: |
+      <approved workflow>
+```
+
+- Failed Step: <failed step>
+- Expected: <expected behavior>
+- Actual: <observed behavior>
+- Failure Screenshot: <path/to/failure-screenshot.png>
+
+![Failure screenshot](<path/to/failure-screenshot.png>)
+
+Trigger Chain:
+
+1. Opened <url> with <preconditions>.
+2. Completed <prior action or route transition>.
+3. Sent/observed <relevant request, route, console event, or UI state>.
+4. Failed at <exact assertion or action>.
+
+Manual Reproduction:
+
+1. Open <url>.
+2. Follow the approved story workflow up to <failed step>.
+3. Use <test data or credentials, or "no special data required">.
+4. Observe <actual result> instead of <expected result>.
+
+Console/Network Evidence:
+
+<console errors, failed requests, or "None captured">
 
 ## Artifacts
 
 - Screenshots: <run directory>
+- Failure screenshots: <paths or "none">
 - Console logs: <paths or "captured inline only">
 - Network notes: <paths or "none">
 
